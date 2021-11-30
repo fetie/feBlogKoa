@@ -41,7 +41,7 @@ const articleFind = async (ctx) => {
         page=Number(page)
     }
 
-    let pageSize=2
+    let pageSize=10
 
     //统计总数
     let count=0
@@ -62,7 +62,7 @@ const articleFind = async (ctx) => {
     let start=(page-1)*pageSize
 
     await Article.find(query).skip(start).limit(pageSize).then((res)=>{
-        if(res && res.length>0){
+        if(res){
             ctx.body={
                 code:200,
                 result: {
@@ -71,12 +71,6 @@ const articleFind = async (ctx) => {
                     count,
                     data:res
                 },
-
-            }
-        }else{
-            ctx.body={
-                code:300,
-                msg:'查询失败'
             }
         }
     }).catch(err => {
