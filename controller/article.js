@@ -61,7 +61,7 @@ const articleFind = async (ctx) => {
 
     let start=(page-1)*pageSize
 
-    await Article.find(query).skip(start).limit(pageSize).then((res)=>{
+    await Article.find(query).sort({'_id':-1}).skip(start).limit(pageSize).then((res)=>{
         if(res){
             ctx.body={
                 code:200,
