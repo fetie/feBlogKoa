@@ -4,6 +4,8 @@ const path=require('path')
 const moment=require('moment')
 const router = require('koa-router')()
 
+const {FILE_HOST} = require('../config/index')
+
 router.prefix('/upload')
 
 const storage=multer.diskStorage({
@@ -29,7 +31,7 @@ let upload=multer({storage})
 //上传图片的接口
 router.post('/img',upload.single('file'),async ctx=>{
     let path=ctx.req.file.path
-    path=ctx.origin+''+path.replace('public','')
+    path='https://'+FILE_HOST+''+path.replace('public','')
     ctx.body={
         code:200,
         url:path,
